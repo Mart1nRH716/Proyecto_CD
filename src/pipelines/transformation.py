@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, OneHotEncoder, KBinsDiscretizer
 from ingestion import ingest_file
+from sklearn.impute import SimpleImputer
 
 meses_es = {
     'ENERO': '01', 'FEBRERO': '02', 'MARZO': '03', 'ABRIL': '04', 'MAYO': '05',
@@ -149,11 +150,19 @@ def one_hot_column(df, cols_categoricas):
 		df = pd.concat([df, col_encoded_df], axis=1).drop(columns=[col])
 	return df
 
+def median_imputation(df: pd.DataFrame) -> pd.DataFrame:
+	# Reemplaza todas las columnas numéricas con la mediana de la columna especificada
+	si = SimpleImputer(strategy='median')
+	for column in df.select_dtypes(include=['float64', 'int64']).columns:
+		if column in df.columns:
+			df[column] = si.fit_transform(df[[column]])
+	return df
 
 def transform_data(df, cols_date, cols_numericas, cols_categoricas, cols_strings, one_hot_columns):
 	df = date_transformation(df, cols_date)
 	df = numeric_transformation(df, cols_numericas)
 	df = categorical_transformation(df, cols_categoricas)
+	df = median_imputation(df)
 	df = scale_numeric_data(df, cols_numericas)
 	df = string_transformation(df, cols_strings)
 	df = one_hot_column(df, one_hot_columns)

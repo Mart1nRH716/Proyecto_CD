@@ -1,9 +1,10 @@
-from sklearn.preprocessing import OneHotEncoder
+
 from ingestion import *
 import pandas as pd
 
 from transformation import date_transformation, limpiar_fecha, numeric_transformation, string_transformation, transform_data
-
+PATH_LOAD = 'C:/PracticasEscom/Proyecto_CD/docs/'
+PATH_SAVE = 'C:/PracticasEscom/Proyecto_CD/output/'
 
 def feature_generation(df: pd.DataFrame) -> pd.DataFrame:
 	# Procesar medicamentos (ejemplo: contar numero de medicamentos)
@@ -30,7 +31,7 @@ def target_variable(df: pd.DataFrame) -> pd.Series:
 	return df
 
 def feature_engineering():
-	df = ingest_file('E:/ProyectosPython/ProyectoFinalCD/docs/MuestraDM.csv')
+	df = ingest_file(PATH_LOAD + 'MuestraDM.csv')
 	df = feature_generation(df)
 	numeric_vars = ['glucosa', 'colesterol', 'urea', 'peso', 'altura', 'trigliceridos', 'hba1c',
 					'plaquetas', 'creatinina', 'presion_sistolica', 'presion_diastolica', 'num_medicamentos']
@@ -41,6 +42,6 @@ def feature_engineering():
 	df = transform_data(df, date_variables, numeric_vars, categorical_vars, string_vars, one_hot_columns)
 	df = target_variable(df)
 	df = feature_selection(df, numeric_vars + date_variables  + ['sexo_M'] + ['imc'] + ['diabetes'])
-	save_df(df, 'E:/ProyectosPython/ProyectoFinalCD/output/DM_features.csv')
+	save_df(df, PATH_SAVE + 'DM_features.csv')
 
 feature_engineering()

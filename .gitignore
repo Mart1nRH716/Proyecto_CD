@@ -1,0 +1,5 @@
+env/
+src/pipelines/__pycache__/ingestion.cpython-312.pyc
+src/pipelines/__pycache__/model_evaluation.cpython-312.pyc
+src/pipelines/__pycache__/transformation.cpython-312.pyc
+src/pipelines/utils/__pycache__/utils.cpython-312.pyc
