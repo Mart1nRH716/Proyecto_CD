@@ -1,4 +1,0 @@
-Model: DecisionTreeClassifier, Score: 0.8287250384024577
-Model: KNeighborsClassifier, Score: 0.8352668213457076
-Model: LogisticRegression, Score: 0.699642431466031
-Model: RandomForestClassifier, Score: 0.8725573491928632
