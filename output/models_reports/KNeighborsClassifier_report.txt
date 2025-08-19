@@ -13,3 +13,6 @@ Classification Report:
     accuracy                           0.79      1863
    macro avg       0.77      0.76      0.76      1863
 weighted avg       0.79      0.79      0.79      1863
+Mejores Hiperparámetros:
+  n_neighbors: 3
+  weights: uniform

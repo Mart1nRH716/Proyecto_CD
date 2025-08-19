@@ -3,8 +3,10 @@ from ingestion import *
 import pandas as pd
 
 from transformation import date_transformation, limpiar_fecha, numeric_transformation, string_transformation, transform_data
-PATH_LOAD = 'C:/PracticasEscom/Proyecto_CD/docs/'
-PATH_SAVE = 'C:/PracticasEscom/Proyecto_CD/output/'
+# PATH_LOAD = 'C:/PracticasEscom/Proyecto_CD/docs/'
+# PATH_SAVE = 'C:/PracticasEscom/Proyecto_CD/output/'
+PATH_LOAD = 'E:/ProyectosPython/ProyectoFinalCD/docs'
+PATH_SAVE = 'E:/ProyectosPython/ProyectoFinalCD/output/'
 
 def feature_generation(df: pd.DataFrame) -> pd.DataFrame:
 	# Procesar medicamentos (ejemplo: contar numero de medicamentos)

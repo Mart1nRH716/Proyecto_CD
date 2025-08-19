@@ -11,9 +11,11 @@ from utils.utils import load_df
 import seaborn as sns
 from model_evaluation import *
 
-#PATH = 'E:/ProyectosPython/ProyectoFinalCD/output/DM_features.csv'
-PATH_LOAD = 'C:/PracticasEscom/Proyecto_CD/output/'
-PATH_SAVE = 'C:/PracticasEscom/Proyecto_CD/models/'
+# PATH = 'E:/ProyectosPython/ProyectoFinalCD/output/DM_features.csv'
+PATH_LOAD = 'E:/ProyectosPython/ProyectoFinalCD/output/'
+PATH_SAVE = 'E:/ProyectosPython/ProyectoFinalCD/models/'
+# PATH_LOAD = 'C:/PracticasEscom/Proyecto_CD/output/'
+# PATH_SAVE = 'C:/PracticasEscom/Proyecto_CD/models/'
 
 algorithms_dict = {
 		'tree': 'tree_grid_search',
@@ -25,16 +27,16 @@ algorithms_dict = {
 grid_search_dict = {
 		'tree_grid_search': {'max_depth': [5,10,15,None], 'min_samples_leaf': [3,5,7]},
 		'rf_grid_search': {'n_estimators': [100,300,500,800,1000], 'max_depth': [5,10,15,20,None], 'min_samples_leaf': [3,5,7,11]},
-		'logistic_regression_grid_search': {'C': [0.1, 1, 10, 100]},
-		'naive_bayes_grid_search': {'alpha': [0.1, 1, 10]},
-		'k_nearest_neighbors_grid_search': {'n_neighbors': [3, 5, 7, 9], 'weights': ['uniform', 'distance']}
+		'logistic_regression_grid_search': {'C': [0.1, 1, 10, 100]}, # Regularization strength (Un valor de 'C' más pequeño indica una regularización más fuerte (penalización más grande), lo que hace que el modelo sea más simple y menos propenso al sobreajuste.)
+		'naive_bayes_grid_search': {'alpha': [0.1, 1, 10]}, # Parámetro de suavizado de Laplace (alpha) para evitar probabilidades cero en el modelo Naive Bayes.
+		'k_nearest_neighbors_grid_search': {'n_neighbors': [3, 5, 7, 9], 'weights': ['uniform', 'distance']} # uniform: los pesos de los vecinos tienen la misma magnitud, distance: vecinos más cercanos tienen mayor influencia.
 	}
-estimators_dict = {'tree': DecisionTreeClassifier(random_state=1111),
-				  'random_forest': RandomForestClassifier(oob_score=True, random_state=2222),
-				  'logistic_regression': LogisticRegression(random_state=3333),
+estimators_dict = {'tree': DecisionTreeClassifier(random_state=42),
+				  'random_forest': RandomForestClassifier(random_state=42),
+				  'logistic_regression': LogisticRegression(random_state=42),
 				  'naive_bayes': GaussianNB(),
 				  'k_nearest_neighbors': KNeighborsClassifier()}
-	
+
 
 
 def load_features(path= PATH_LOAD + 'DM_features.csv'):
@@ -105,3 +107,4 @@ print("Modeling pipeline completed successfully.")
 models = load_model()
 resultados = metric_evaluation(models, X_test, y_test)
 save_evaluation_results(resultados)
+save_metrics_pkl(resultados)
